@@ -1,26 +1,188 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ── Design tokens ── */
+@theme {
+  --color-bg:        #0c0c0c;
+  --color-surface:   #141414;
+  --color-surface2:  #1c1c1c;
+  --color-border:    #2a2a2a;
+  --color-orange:    #f97316;
+  --color-amber:     #fbbf24;
+  --color-lime:      #a3e635;
+  --color-red:       #f43f5e;
+  --color-text:      #e8e0d0;
+  --color-muted:     #7a7065;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* ── Base ── */
+@layer base {
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: #0c0c0c;
+    color: #e8e0d0;
+    font-family: var(--font-mono), "Courier New", monospace;
+    overflow-x: hidden;
   }
+
+  ::selection {
+    background: #f97316;
+    color: #0c0c0c;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #141414; }
+  ::-webkit-scrollbar-thumb { background: #f97316; border-radius: 0; }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ── Pixel / Blocky text ── */
+.pixel {
+  font-family: var(--font-pixel), monospace;
+  letter-spacing: -0.02em;
+  line-height: 1.6;
+  image-rendering: pixelated;
+}
+.pixel-sm  { font-size: 0.6rem; }
+.pixel-md  { font-size: 0.75rem; }
+.pixel-lg  { font-size: 1rem; }
+.pixel-xl  { font-size: 1.4rem; }
+.pixel-2xl { font-size: 2rem; }
+.pixel-3xl { font-size: 2.8rem; }
+
+/* ── Flat card ── */
+.f-card {
+  background: #141414;
+  border: 1px solid #2a2a2a;
+  transition: border-color 0.2s, background 0.2s;
+}
+.f-card:hover {
+  border-color: #f97316;
+  background: #191919;
+}
+
+/* ── Solid accent tags ── */
+.tag-orange { background: #f97316; color: #0c0c0c; }
+.tag-amber  { background: #fbbf24; color: #0c0c0c; }
+.tag-lime   { background: #a3e635; color: #0c0c0c; }
+.tag-red    { background: #f43f5e; color: #fff; }
+.tag-dim    { background: #1c1c1c; color: #7a7065; border: 1px solid #2a2a2a; }
+
+/* ── Scan-line overlay on hero ── */
+.scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.06) 2px,
+    rgba(0,0,0,0.06) 4px
+  );
+  pointer-events: none;
+}
+
+/* ── Dot grid bg ── */
+.dot-grid {
+  background-image: radial-gradient(circle, #2a2a2a 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ── Scroll progress ── */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  background: #f97316;
+  z-index: 1000;
+  transform-origin: left;
+}
+
+/* ── Nav link ── */
+.nav-link { position: relative; }
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -3px; left: 0;
+  width: 0; height: 2px;
+  background: #f97316;
+  transition: width 0.25s ease;
+}
+.nav-link:hover::after { width: 100%; }
+
+/* ── Timeline ── */
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -1px; top: 20px; bottom: -24px;
+  width: 2px;
+  background: #2a2a2a;
+}
+.timeline-item:last-child::before { display: none; }
+
+/* ── Skill bar ── */
+.skill-bar-fill {
+  height: 100%;
+  border-radius: 0;
+  position: relative;
+  overflow: hidden;
+}
+.skill-bar-fill::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -100%;
+  width: 50%;
+  height: 100%;
+  background: rgba(255,255,255,0.15);
+  animation: sweep 2.5s infinite;
+}
+@keyframes sweep { 100% { left: 250%; } }
+
+/* ── Cursor crosshair ── */
+.cursor-dot {
+  position: fixed;
+  width: 8px; height: 8px;
+  background: #f97316;
+  border-radius: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  transition: transform 0.08s, opacity 0.3s;
+}
+
+/* ── Modal overlay ── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(12,12,12,0.92);
+  z-index: 100;
+  backdrop-filter: blur(4px);
+}
+
+/* ── Blink caret ── */
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+.caret::after {
+  content: "_";
+  animation: blink 1s infinite;
+  color: #f97316;
+}
+
+/* ── Floating ── */
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+.floating { animation: float 3.5s ease-in-out infinite; }
+
+/* ── Pixel border (offset shadow) ── */
+.px-border        { box-shadow: 4px 4px 0 #f97316; }
+.px-border-amber  { box-shadow: 4px 4px 0 #fbbf24; }
+.px-border-lime   { box-shadow: 4px 4px 0 #a3e635; }
+.px-border-red    { box-shadow: 4px 4px 0 #f43f5e; }
+
+/* ── Noise texture overlay ── */
+.noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  background-repeat: repeat;
 }
