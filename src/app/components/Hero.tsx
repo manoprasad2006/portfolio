@@ -74,12 +74,12 @@ export default function Hero() {
           <span className="pixel pixel-sm text-[#f97316]">STATUS: AVAILABLE</span>
         </motion.div>
 
-        {/* Name — pixel font, large */}
+        {/* Name — pixel font, responsive scaling */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
-          className="pixel pixel-3xl md:text-[3.5rem] text-[#e8e0d0] mb-6 leading-tight"
+          className="pixel text-3xl sm:text-4xl md:pixel-3xl lg:text-[4rem] text-[#e8e0d0] mb-6 leading-tight tracking-tighter"
         >
           MANO<br />
           <span className="text-[#f97316]">PRASAD V</span>
@@ -126,17 +126,26 @@ export default function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.4 }}
-          className="flex flex-wrap gap-4 justify-center"
+          className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center"
         >
           <button
             onClick={scrollToNext}
-            className="px-7 py-3 bg-[#f97316] text-[#0c0c0c] pixel pixel-sm font-bold hover:bg-[#a3e635] transition-colors flex items-center gap-2 px-border"
+            className="px-6 sm:px-7 py-3 bg-[#f97316] text-[#0c0c0c] pixel pixel-sm font-bold hover:bg-[#a3e635] transition-colors flex justify-center items-center gap-2 px-border"
           >
-            VIEW WORK <ArrowDown size={14} />
+            EXPERIENCE <ArrowDown size={14} />
           </button>
+          
+          <a
+            href="/Mano_Prasad_V_CV.pdf"
+            download="Mano_Prasad_V_CV.pdf"
+            className="px-6 sm:px-7 py-3 border border-[#a3e635] text-[#a3e635] pixel pixel-sm hover:bg-[#a3e635] hover:text-[#0c0c0c] transition-colors flex justify-center items-center"
+          >
+            DOWNLOAD CV
+          </a>
+
           <a
             href="mailto:manoprasadvs@gmail.com"
-            className="px-7 py-3 border border-[#2a2a2a] text-[#e8e0d0] pixel pixel-sm hover:border-[#f97316] hover:text-[#f97316] transition-colors"
+            className="px-6 sm:px-7 py-3 border border-[#2a2a2a] text-[#e8e0d0] pixel pixel-sm hover:border-[#f97316] hover:text-[#f97316] transition-colors flex justify-center items-center"
           >
             CONTACT
           </a>

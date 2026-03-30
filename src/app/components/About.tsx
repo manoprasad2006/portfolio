@@ -37,7 +37,7 @@ export default function About() {
           <div className="flex-1 h-px bg-[#2a2a2a]" />
         </motion.div>
 
-        <div className="grid lg:grid-cols-5 gap-12">
+        <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
           {/* Text col */}
           <div className="lg:col-span-3 space-y-5">
             <motion.p custom={0} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"}
